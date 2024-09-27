@@ -8,11 +8,13 @@
         body, html {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace; /* Tipografía más romántica */
+            background-color: #fce4ec; /* Fondo suave y romántico */
         }
 
+        /* Estilo del fondo con desvanecido */
         .background {
-            background-image: url('https://www.example.com/your-image.jpg'); /* Cambia este URL por tu imagen */
+            background-image: url('https://drive.google.com/uc?id=1DeWMko81IjnJ3Lg2l4OPomQ_l81RA8P-');
             height: 100%;
             background-position: center;
             background-repeat: no-repeat;
@@ -20,6 +22,7 @@
             position: relative;
         }
 
+        /* Desvanecido */
         .background:before {
             content: "";
             position: absolute;
@@ -27,9 +30,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* oscurece el fondo */
+            background: rgba(0, 0, 0, 0.4); /* Oscurece el fondo ligeramente */
         }
 
+        /* Estilo del contenido */
         .content {
             position: relative;
             color: white;
@@ -38,28 +42,34 @@
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 3.5em;
+            font-family: 'Dancing Script', cursive; /* Tipografía romántica */
+            color: #ff80ab;
         }
 
         h2 {
-            font-size: 2em;
+            font-family: 'Dancing Script', cursive;
+            color: #ff80ab;
         }
 
         .btn {
-            background-color: #4CAF50;
+            background-color: #ff80ab; /* Color rosado */
             color: white;
-            padding: 14px 20px;
+            padding: 14px 30px;
             margin: 10px;
+            border-radius: 50px;
             border: none;
             cursor: pointer;
-            font-size: 1.2em;
+            font-size: 1.5em;
+            transition: background-color 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
         }
 
         .btn:hover {
-            background-color: #45a049;
+            background-color: #ff4081; /* Color de hover más intenso */
         }
 
-        #options, #no-page, #appointment-message {
+        #options, #no-page, #confirm-page {
             display: none;
         }
 
@@ -83,10 +93,11 @@
     <!-- Opciones después de decir "Sí" -->
     <div id="options" class="content">
         <h2>¿Qué te gustaría hacer?</h2>
-        <button class="btn" onclick="showAppointmentMessage('Ir al cine')">Ir al cine</button><br>
-        <button class="btn" onclick="showAppointmentMessage('Ir a cenar')">Ir a cenar (Donde tú elijas)</button><br>
-        <button class="btn" onclick="showAppointmentMessage('Ir a tomar algo')">Ir a tomar algo</button><br>
-        <button class="btn" onclick="showAppointmentMessage('Hacer picnic')">Hacer picnic</button>
+        <button class="btn" onclick="confirmPlan('Ir al cine')">Ir al cine</button><br>
+        <button class="btn" onclick="confirmPlan('Ir a cenar')">Ir a cenar</button><br>
+        <button class="btn" onclick="confirmPlan('Ir a tomar algo')">Ir a tomar algo</button><br>
+        <button class="btn" onclick="confirmPlan('Hacer picnic')">Hacer picnic</button>
+        <button class="btn" onclick="confirmPlan('Noche-Pelis')">Pedimos algo y vemos Breaking Bad</button>
     </div>
 
     <!-- Página de respuesta a "No" -->
@@ -95,10 +106,10 @@
         <p><a class="calendar-link" onclick="showOptions()">Ver opciones</a></p>
     </div>
 
-    <!-- Mensaje de cita confirmada -->
-    <div id="appointment-message" class="content">
-        <h2>Cita completa para hoy a las 19:30</h2>
-        <button class="btn" onclick="goBack()">Volver a empezar</button>
+    <!-- Pantalla de confirmación -->
+    <div id="confirm-page" class="content">
+        <h2>Plan seleccionado correctamente</h2>
+        <p>¡Qué emoción! Te Amo.</p>
     </div>
 </div>
 
@@ -121,19 +132,12 @@
         document.getElementById('no-page').style.display = 'block';
     }
 
-    // Mostrar el mensaje de cita confirmada al elegir una opción
-    function showAppointmentMessage(option) {
-        alert("Has elegido: " + option);
+    // Mostrar pantalla de confirmación al elegir una opción
+    function confirmPlan(option) {
         document.getElementById('selected-option').value = option; // Asigna la opción seleccionada al campo oculto
         document.getElementById('email-form').submit(); // Envía el formulario
         document.getElementById('options').style.display = 'none';
-        document.getElementById('appointment-message').style.display = 'block';
-    }
-
-    // Volver a la pantalla inicial
-    function goBack() {
-        document.getElementById('appointment-message').style.display = 'none';
-        document.querySelector('.content').style.display = 'block';
+        document.getElementById('confirm-page').style.display = 'block';
     }
 </script>
 
