@@ -14,7 +14,7 @@
 
         /* Estilo del fondo con desvanecido */
         .background {
-             background-image: url('./IMG_0168.PNG');
+            background-image: url('./IMG_0168.PNG');
             height: 100%;
             background-position: center;
             background-repeat: no-repeat;
@@ -132,12 +132,30 @@
         document.getElementById('no-page').style.display = 'block';
     }
 
-    // Mostrar pantalla de confirmación al elegir una opción
+    // Manejar el envío del formulario
     function confirmPlan(option) {
         document.getElementById('selected-option').value = option; // Asigna la opción seleccionada al campo oculto
-        document.getElementById('email-form').submit(); // Envía el formulario
-        document.getElementById('options').style.display = 'none';
-        document.getElementById('confirm-page').style.display = 'block';
+        const form = document.getElementById('email-form');
+
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Si el formulario se envía correctamente, muestra la pantalla de confirmación
+                document.getElementById('options').style.display = 'none';
+                document.getElementById('confirm-page').style.display = 'block';
+            } else {
+                throw new Error('Error en el envío del formulario');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 </script>
 
