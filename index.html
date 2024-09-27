@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Te apetece hacer algo hoy juntos?</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .background {
+            background-image: url('https://www.example.com/your-image.jpg'); /* Cambia este URL por tu imagen */
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .background:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* oscurece el fondo */
+        }
+
+        .content {
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        #options, #no-page, #appointment-message {
+            display: none;
+        }
+
+        .calendar-link {
+            color: yellow;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fondo desvanecido -->
+<div class="background">
+    <div class="content">
+        <h1>¿Te apetece hacer algo hoy juntos?</h1>
+        <button class="btn" onclick="showOptions()">Sí</button>
+        <button class="btn" onclick="showNoPage()">No</button>
+    </div>
+
+    <!-- Opciones después de decir "Sí" -->
+    <div id="options" class="content">
+        <h2>¿Qué te gustaría hacer?</h2>
+        <button class="btn" onclick="showAppointmentMessage('Ir al cine')">Ir al cine</button><br>
+        <button class="btn" onclick="showAppointmentMessage('Ir a cenar')">Ir a cenar (Donde tú elijas)</button><br>
+        <button class="btn" onclick="showAppointmentMessage('Ir a tomar algo')">Ir a tomar algo</button><br>
+        <button class="btn" onclick="showAppointmentMessage('Hacer picnic')">Hacer picnic</button>
+    </div>
+
+    <!-- Página de respuesta a "No" -->
+    <div id="no-page" class="content">
+        <h2>Yo sé que sí quieres :)</h2>
+        <p><a class="calendar-link" onclick="showOptions()">Ver opciones</a></p>
+    </div>
+
+    <!-- Mensaje de cita confirmada -->
+    <div id="appointment-message" class="content">
+        <h2>Cita completa para hoy a las 19:30</h2>
+        <button class="btn" onclick="goBack()">Volver a empezar</button>
+    </div>
+</div>
+
+<!-- Formulario oculto para enviar la opción seleccionada -->
+<form id="email-form" action="https://formspree.io/f/xpwavqnd" method="POST" style="display:none;">
+    <input type="hidden" name="option" id="selected-option">
+    <input type="hidden" name="email" value="fontainefrederic114@gmail.com"> <!-- Tu correo electrónico -->
+</form>
+
+<script>
+    // Mostrar las opciones al elegir "Sí"
+    function showOptions() {
+        document.querySelector('.content').style.display = 'none';
+        document.getElementById('options').style.display = 'block';
+    }
+
+    // Mostrar mensaje personalizado al elegir "No"
+    function showNoPage() {
+        document.querySelector('.content').style.display = 'none';
+        document.getElementById('no-page').style.display = 'block';
+    }
+
+    // Mostrar el mensaje de cita confirmada al elegir una opción
+    function showAppointmentMessage(option) {
+        alert("Has elegido: " + option);
+        document.getElementById('selected-option').value = option; // Asigna la opción seleccionada al campo oculto
+        document.getElementById('email-form').submit(); // Envía el formulario
+        document.getElementById('options').style.display = 'none';
+        document.getElementById('appointment-message').style.display = 'block';
+    }
+
+    // Volver a la pantalla inicial
+    function goBack() {
+        document.getElementById('appointment-message').style.display = 'none';
+        document.querySelector('.content').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
